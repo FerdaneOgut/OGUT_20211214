@@ -1,7 +1,7 @@
 ## VIDEO UPLOADER APP
 
 The repository contains both frontend and backend for video uploading. Backend is written with Go. Frontend is written with React/Typescript.
-### Backend
+#### Backend
 The api has 4 endpoints. it uses Postgres for data storage. It will seed the categories when the app starts.
 
 - GET /categories to get categories
@@ -10,7 +10,7 @@ It uses ffmpeg utility to create thumbnails images of the video. It takes the fi
 - GET /video/:id to serve the video. It gets the video by the id and serves the video from the path app stores.
 - GET /video/ to get all videos from db.
 
-### Frontend 
+#### Frontend 
 The ui has 2 pages inside pages folder. HomePage to list the videos. VideoUpload page to upload videos. 
 
 ## Instructions
