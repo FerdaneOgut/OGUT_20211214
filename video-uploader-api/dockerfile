@@ -1,0 +1,19 @@
+FROM golang:1.16-alpine as builder
+ENV GO111MODULE=on
+# RUN apk add build-base
+RUN apk add  --no-cache ffmpeg
+WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+
+COPY . ./
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/video-uploader
+
+# FROM scratch
+# COPY --from=builder /app/video-uploader /app/
+EXPOSE 7000
+ENTRYPOINT ["/app/video-uploader"]
