@@ -18,11 +18,14 @@ func main() {
 	r := gin.Default()
 
 	r.Use(cors.Default())
-	//	v1 := r.Group("/v1/api")
-	r.POST("/video", routes.AddVideo)
-	r.GET("/video", routes.GetVideos)
-	r.GET("/video/:id", routes.ServeVideo)
-	r.GET("/categories", routes.GetCategories)
+	v1 := r.Group("/v1/api")
+	{
+
+		v1.POST("/video", routes.AddVideo)
+		v1.GET("/video", routes.GetVideos)
+		v1.GET("/video/:id", routes.ServeVideo)
+		v1.GET("/categories", routes.GetCategories)
+	}
 
 	r.Run()
 }

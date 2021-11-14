@@ -31,13 +31,13 @@ func Connect() {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	fmt.Println("Connection Opened to Database")
+	log.Println("Connection Opened to Database")
 	migrate()
 }
 
 func migrate() {
 	DB.AutoMigrate(&models.Category{}, &models.Video{})
-	fmt.Println("Migrated")
+	log.Println("DB Migrated")
 	seed(DB)
-	fmt.Println("Data seeded")
+	log.Println("Data seeded")
 }
