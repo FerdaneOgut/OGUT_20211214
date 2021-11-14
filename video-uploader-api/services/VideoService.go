@@ -31,6 +31,7 @@ type VideoDto struct {
 	Thumbnail64  []byte
 	Thumbnail128 []byte
 	Thumbnail256 []byte
+	Ext          string
 }
 
 func (v *VideoDto) Validate() *errorutils.ErrorResponse {
@@ -52,7 +53,7 @@ func (v *VideoDto) Validate() *errorutils.ErrorResponse {
 	if !exist {
 		return errorutils.NewBadRequestError("Unsupported data type! Valid types are:  " + strings.Join(validExt, ","))
 	}
-
+	v.Ext = fileExt
 	return nil
 }
 func (v *VideoDto) SaveFile(c *gin.Context) *errorutils.ErrorResponse {
@@ -65,7 +66,7 @@ func (v *VideoDto) SaveFile(c *gin.Context) *errorutils.ErrorResponse {
 		log.Println(createFileErr.Error())
 		return errorutils.NewInternalServerError(createFileErr.Error())
 	}
-	path := fmt.Sprintf("%s/%s", mainP, v.File.Filename)
+	path := fmt.Sprintf("%s/%s.%s", mainP, v.Title, v.Ext)
 	v.Path = path
 	saveErr := c.SaveUploadedFile(v.File, path)
 	if saveErr != nil {
